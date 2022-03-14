@@ -5,7 +5,7 @@ class UserManager(BaseUserManager):
 
     def create_user(self,email , password = None ,**extra_feilds): #extra_feilds: 將其他多傳遞的參數pass them into extra fields
         """ Creates and saves a new user"""
-        user = self.model(email = email,**extra_feilds)
+        user = self.model(email = self.normalize_email(email),**extra_feilds)
         user.set_password(password)  #password be encrypted
         user.save( using = self._db)
 
