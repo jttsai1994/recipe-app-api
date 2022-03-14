@@ -5,6 +5,8 @@ class UserManager(BaseUserManager):
 
     def create_user(self,email , password = None ,**extra_feilds): #extra_feilds: 將其他多傳遞的參數pass them into extra fields
         """ Creates and saves a new user"""
+        if not email:
+            raise ValueError("User must have email address")
         user = self.model(email = self.normalize_email(email),**extra_feilds)
         user.set_password(password)  #password be encrypted
         user.save( using = self._db)
